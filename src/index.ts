@@ -1,5 +1,6 @@
 import express from 'express';
 
+import logger from './configs/loggerConfig';
 import serverConfig from './configs/serverConfig';
 import apiRouter from './routes';
 import errorHandler from './utils/errorHandler';
@@ -13,5 +14,5 @@ app.use('/api', apiRouter);
 app.use(errorHandler);
 
 app.listen(PORT, () => {
-    console.log(`Server started at PORT: ${PORT}`);
+    logger.info(`Server started at PORT: ${PORT}`);
 });
