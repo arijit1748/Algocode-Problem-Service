@@ -4,7 +4,7 @@ import BaseError from './BaseError';
 
 class UnauthorizedError extends BaseError {
     constructor() {
-        super('UnAuthorized', StatusCodes.UNAUTHORIZED, 'No valid credentials found');
+        super('UnAuthorized', StatusCodes.UNAUTHORIZED, 'No valid credentials found', {});
     }
 }
 
