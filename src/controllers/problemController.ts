@@ -1,6 +1,12 @@
 import { NextFunction, Request, Response } from 'express';
+import { StatusCodes } from 'http-status-codes';
 
 import NotImplementedError from '../errors/NotImplementedError';
+import ProblemRepository from '../repositories/ProblemRepository';
+import ProblemService from '../services/ProblemService';
+import { ProblemData } from '../types/problemDataRequestBodyDefinition';
+
+const problemService = new ProblemService(new ProblemRepository());
 
 function pingChcekController(_req: Request, res: Response) {
     return res.json({
@@ -8,9 +14,16 @@ function pingChcekController(_req: Request, res: Response) {
     });
 };
 
-function addProblem(_req: Request, _res: Response, next: NextFunction) {
+async function addProblem(req: Request, res: Response, next: NextFunction) {
     try {
-        throw new NotImplementedError('addProblem');
+        const problemData: ProblemData = req.body;
+        const response = await problemService.createProblem(problemData);
+        return res.status(StatusCodes.CREATED).json({
+            success: true,
+            message: 'Successfully created a new problem',
+            error: {},
+            data: response
+        });
     } catch (error) {
         next(error);
     }

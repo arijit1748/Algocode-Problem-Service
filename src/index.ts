@@ -1,3 +1,4 @@
+import bodyParser from 'body-parser';
 import express from 'express';
 
 import connectToDb from './configs/dbConfig';
@@ -9,6 +10,10 @@ import errorHandler from './utils/errorHandler';
 const { PORT } = serverConfig;
 
 const app = express();
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.text());
 
 app.use('/api', apiRouter);
 
