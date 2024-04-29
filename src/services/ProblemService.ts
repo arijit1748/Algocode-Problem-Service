@@ -13,6 +13,17 @@ class ProblemService {
         const problem = await this.problemRepository.createProblem(problemData);
         return problem;
     }
+
+    async getProblems() {
+        const problems = await this.problemRepository.getProblems();
+        return problems;
+    }
+
+    async getProblem(id: string) {
+        const problem = await this.problemRepository.getProblem(id);
+        return problem;
+    }
+    
 }
 
 export default ProblemService;
