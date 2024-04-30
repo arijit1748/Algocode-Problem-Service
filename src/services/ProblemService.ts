@@ -1,3 +1,4 @@
+import logger from '../configs/loggerConfig';
 import BadRequestError from '../errors/BadRequestError';
 import { ProblemData } from '../types/problemDataRequestBodyDefinition';
 import { IProblemRepository } from '../types/problemRepositoryDefinition';
@@ -11,6 +12,7 @@ class ProblemService {
 
     async createProblem(problemData: ProblemData) {
         if(Object.keys(problemData).length == 0) {
+            logger.error('Problem data is not provided');
             throw new BadRequestError('Problem Data', { message: 'problem data should not be empty' });
         }
         problemData.description = await markdownSanitizer(problemData.description);
@@ -35,6 +37,7 @@ class ProblemService {
 
     async updateProblem(id: string, problemData: ProblemData) {
         if(Object.keys(problemData).length == 0) {
+            logger.error('Problem data is not provided');
             throw new BadRequestError('Problem Data', { message: 'problem data should not be empty' });
         }
         if(problemData.description) {
