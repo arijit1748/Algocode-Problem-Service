@@ -1,3 +1,4 @@
+import BadRequestError from '../errors/BadRequestError';
 import { ProblemData } from '../types/problemDataRequestBodyDefinition';
 import { IProblemRepository } from '../types/problemRepositoryDefinition';
 import markdownSanitizer from '../utils/markdownSanitizer';
@@ -9,6 +10,9 @@ class ProblemService {
     }
 
     async createProblem(problemData: ProblemData) {
+        if(Object.keys(problemData).length == 0) {
+            throw new BadRequestError('Problem Data', { message: 'problem data should not be empty' });
+        }
         problemData.description = await markdownSanitizer(problemData.description);
         const problem = await this.problemRepository.createProblem(problemData);
         return problem;
@@ -30,6 +34,9 @@ class ProblemService {
     }
 
     async updateProblem(id: string, problemData: ProblemData) {
+        if(Object.keys(problemData).length == 0) {
+            throw new BadRequestError('Problem Data', { message: 'problem data should not be empty' });
+        }
         if(problemData.description) {
             problemData.description = await markdownSanitizer(problemData.description);
         }

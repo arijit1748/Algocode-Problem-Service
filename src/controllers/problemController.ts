@@ -59,7 +59,6 @@ async function getProblem(req: Request, res: Response, next: NextFunction) {
 async function updateProblem(req: Request, res: Response, next: NextFunction) {
     try {
         const problemData: ProblemData = req.body;
-        console.log(problemData);
         const response = await problemService.updateProblem(req.params.id, problemData);
         return res.status(StatusCodes.OK).json({
             success: true,

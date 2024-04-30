@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 
 import BadRequestError from '../errors/BadRequestError';
+import NotFoundError from '../errors/NotFoundError';
 import Problem from '../models/problemModel';
 import { ProblemData } from '../types/problemDataRequestBodyDefinition';
 import { IProblemRepository } from '../types/problemRepositoryDefinition';
@@ -31,6 +32,9 @@ class ProblemRepository implements IProblemRepository {
                 throw new BadRequestError('Problem Id', { id });
             }
             const problem = await Problem.findById(id);
+            if(!problem) {
+                throw new NotFoundError('Problem', id);
+            }
             return problem;
         } catch (error) {
             throw error;
@@ -43,6 +47,9 @@ class ProblemRepository implements IProblemRepository {
                 throw new BadRequestError('Problem Id', { id });
             }
             const problem = await Problem.findByIdAndDelete(id);
+            if(!problem) {
+                throw new NotFoundError('Delete Problem', id);
+            }
             return problem; 
         } catch (error) {
             throw error;
@@ -55,6 +62,9 @@ class ProblemRepository implements IProblemRepository {
                 throw new BadRequestError('Problem Id', { id });
             }
             const problem = await Problem.findByIdAndUpdate(id, problemData, { new: true });
+            if(!problem) {
+                throw new NotFoundError('Update Problem', id);
+            }
             return problem;
         } catch (error) {
             throw error;
