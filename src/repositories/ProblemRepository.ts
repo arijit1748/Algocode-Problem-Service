@@ -51,6 +51,9 @@ class ProblemRepository implements IProblemRepository {
 
     async updateProblem(id: string, problemData: ProblemData) {
         try {
+            if(!mongoose.Types.ObjectId.isValid(id)) {
+                throw new BadRequestError('Problem Id', { id });
+            }
             const problem = await Problem.findByIdAndUpdate(id, problemData, { new: true });
             return problem;
         } catch (error) {

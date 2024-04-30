@@ -25,8 +25,16 @@ class ProblemService {
     }
 
     async deleteProblem(id: string) {
-        const problem = await this.problemRepository.deleteProblem(id);
-        return problem;
+        const deletedProblem = await this.problemRepository.deleteProblem(id);
+        return deletedProblem;
+    }
+
+    async updateProblem(id: string, problemData: ProblemData) {
+        if(problemData.description) {
+            problemData.description = await markdownSanitizer(problemData.description);
+        }
+        const updatedProblem = await this.problemRepository.updateProblem(id, problemData);
+        return updatedProblem;
     }
     
 }

@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 
-import NotImplementedError from '../errors/NotImplementedError';
 import ProblemRepository from '../repositories/ProblemRepository';
 import ProblemService from '../services/ProblemService';
 import { ProblemData } from '../types/problemDataRequestBodyDefinition';
@@ -57,9 +56,17 @@ async function getProblem(req: Request, res: Response, next: NextFunction) {
     }
 };
 
-function updateProblem(_req: Request, _res: Response, next: NextFunction) {
+async function updateProblem(req: Request, res: Response, next: NextFunction) {
     try {
-        throw new NotImplementedError('updateProblem');
+        const problemData: ProblemData = req.body;
+        console.log(problemData);
+        const response = await problemService.updateProblem(req.params.id, problemData);
+        return res.status(StatusCodes.OK).json({
+            success: true,
+            message: 'Successfully updated a problem',
+            error: {},
+            data: response
+        });
     } catch (error) {
         next(error);
     }
