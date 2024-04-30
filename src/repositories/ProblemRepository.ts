@@ -1,3 +1,6 @@
+import mongoose from 'mongoose';
+
+import BadRequestError from '../errors/BadRequestError';
 import Problem from '../models/problemModel';
 import { ProblemData } from '../types/problemDataRequestBodyDefinition';
 import { IProblemRepository } from '../types/problemRepositoryDefinition';
@@ -24,6 +27,9 @@ class ProblemRepository implements IProblemRepository {
 
     async getProblem(id: string) {
         try {
+            if(!mongoose.Types.ObjectId.isValid(id)) {
+                throw new BadRequestError('ProblemId', { id });
+            }
             const problem = await Problem.findById(id);
             return problem;
         } catch (error) {
