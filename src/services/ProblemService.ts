@@ -3,7 +3,7 @@ import { IProblemRepository } from '../types/problemRepositoryDefinition';
 import markdownSanitizer from '../utils/markdownSanitizer';
 
 class ProblemService {
-    private problemRepository;
+    private problemRepository: IProblemRepository;
     constructor(problemRepository: IProblemRepository) {
         this.problemRepository = problemRepository;
     }
@@ -21,6 +21,11 @@ class ProblemService {
 
     async getProblem(id: string) {
         const problem = await this.problemRepository.getProblem(id);
+        return problem;
+    }
+
+    async deleteProblem(id: string) {
+        const problem = await this.problemRepository.deleteProblem(id);
         return problem;
     }
     

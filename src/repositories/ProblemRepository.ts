@@ -28,7 +28,7 @@ class ProblemRepository implements IProblemRepository {
     async getProblem(id: string) {
         try {
             if(!mongoose.Types.ObjectId.isValid(id)) {
-                throw new BadRequestError('ProblemId', { id });
+                throw new BadRequestError('Problem Id', { id });
             }
             const problem = await Problem.findById(id);
             return problem;
@@ -39,6 +39,9 @@ class ProblemRepository implements IProblemRepository {
 
     async deleteProblem(id: string) {
         try {
+            if(!mongoose.Types.ObjectId.isValid(id)) {
+                throw new BadRequestError('Problem Id', { id });
+            }
             const problem = await Problem.findByIdAndDelete(id);
             return problem; 
         } catch (error) {
