@@ -15,7 +15,7 @@ function pingChcekController(_req: Request, res: Response) {
 
 async function addProblem(req: Request, res: Response, next: NextFunction) {
     try {
-        const problemData: ProblemData = req.body;
+        const problemData = req.body as ProblemData;
         const response = await problemService.createProblem(problemData);
         return res.status(StatusCodes.CREATED).json({
             success: true,
@@ -58,7 +58,7 @@ async function getProblem(req: Request, res: Response, next: NextFunction) {
 
 async function updateProblem(req: Request, res: Response, next: NextFunction) {
     try {
-        const problemData: ProblemData = req.body;
+        const problemData = req.body as ProblemData;
         const response = await problemService.updateProblem(req.params.id, problemData);
         return res.status(StatusCodes.OK).json({
             success: true,
