@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 
+import { ProblemDto } from '../dtos/ProblemDto';
 import ProblemRepository from '../repositories/ProblemRepository';
 import ProblemService from '../services/ProblemService';
-import { ProblemData } from '../types/problemDataRequestBodyDefinition';
 
 const problemService = new ProblemService(new ProblemRepository());
 
@@ -15,7 +15,7 @@ function pingChcekController(_req: Request, res: Response) {
 
 async function addProblem(req: Request, res: Response, next: NextFunction) {
     try {
-        const problemData = req.body as ProblemData;
+        const problemData = req.body as ProblemDto;
         const response = await problemService.createProblem(problemData);
         return res.status(StatusCodes.CREATED).json({
             success: true,
@@ -58,7 +58,7 @@ async function getProblem(req: Request, res: Response, next: NextFunction) {
 
 async function updateProblem(req: Request, res: Response, next: NextFunction) {
     try {
-        const problemData = req.body as ProblemData;
+        const problemData = req.body as ProblemDto;
         const response = await problemService.updateProblem(req.params.id, problemData);
         return res.status(StatusCodes.OK).json({
             success: true,

@@ -1,15 +1,15 @@
 import mongoose from 'mongoose';
 
 import logger from '../configs/loggerConfig';
+import { ProblemDto } from '../dtos/ProblemDto';
 import BadRequestError from '../errors/BadRequestError';
 import NotFoundError from '../errors/NotFoundError';
 import Problem from '../models/problemModel';
-import { ProblemData } from '../types/problemDataRequestBodyDefinition';
 import { IProblemRepository } from '../types/problemRepositoryDefinition';
 
 class ProblemRepository implements IProblemRepository {
 
-    async createProblem(problemData: ProblemData) {
+    async createProblem(problemData: ProblemDto) {
         try {
             const problem = await Problem.create(problemData);
             return problem;
@@ -63,7 +63,7 @@ class ProblemRepository implements IProblemRepository {
         }
     }
 
-    async updateProblem(id: string, problemData: ProblemData) {
+    async updateProblem(id: string, problemData: ProblemDto) {
         try {
             if(!mongoose.Types.ObjectId.isValid(id)) {
                 logger.error('Problem id which is provided, is invalid structure for mongodb object id');
