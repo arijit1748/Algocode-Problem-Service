@@ -1,7 +1,7 @@
 import bodyParser from 'body-parser';
 import express from 'express';
 
-import connectToDb from './configs/dbConfig';
+import db from './configs/dbConfig';
 import logger from './configs/loggerConfig';
 import serverConfig from './configs/serverConfig';
 import apiRouter from './routes';
@@ -21,6 +21,5 @@ app.use(errorHandler);
 
 app.listen(PORT, async () => {
     logger.info(`Server started at PORT: ${PORT}`);
-    await connectToDb();
-    logger.info('Db successfully connected');
+    await db.connect();
 });
