@@ -33,6 +33,28 @@ const problemSchema = new Schema({
         }
     ],
 
+    codeStubs: [
+        {
+            language: {
+                type: String,
+                enum: ['CPP', 'JAVA', 'PYTHON'],
+                required: true
+            },
+            strartSnippet: {
+                type: String,
+                required: true
+            },
+            endSnippet: {
+                type: String,
+                required: true
+            },
+            userSnippet: {
+                type: String,
+                required: true
+            }
+        }
+    ],
+
     editorial: {
         type: String
     }
