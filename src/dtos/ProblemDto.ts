@@ -8,6 +8,12 @@ export const problemZodSchema = z.object({
         input: z.string(),
         output: z.string()
     })),
+    codeStubs: z.array(z.object({
+        language: z.string(),
+        startSnippet: z.string(),
+        userSnippet: z.string(),
+        endSnippet: z.string().optional()
+    })),
     editorial: z.string().optional()
 }).strict();
 

@@ -46,7 +46,6 @@ const problemSchema = new Schema({
             },
             endSnippet: {
                 type: String,
-                required: true
             },
             userSnippet: {
                 type: String,
